@@ -35,9 +35,12 @@ export default {
       if (username === "$USERNAME") {
         return makeStatusResponse(statusCodes.BAD_REQUEST);
       }
-      const exists = await fetch(`https://api.github.com/users/${username}`);
-      console.log(exists.status);
-      if (exists.status === 403) {
+      const exists = await fetch(`https://api.github.com/users/${username}`, {
+        headers: {
+          "User-Agent": "request",
+        },
+      });
+      if (exists.status === 404) {
         return makeStatusResponse(statusCodes.NOT_FOUND);
       }
       const hits = await env.DB.get(username);
