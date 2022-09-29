@@ -50,6 +50,9 @@ export default {
       return new Response(makeBadge(newHits), {
         headers: {
           "content-type": "image/svg+xml;charset=utf-8",
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
         },
       });
     }
