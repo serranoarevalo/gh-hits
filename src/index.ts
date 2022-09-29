@@ -44,6 +44,9 @@ export default {
         newHits = parseInt(hits) + 1;
       }
       await env.DB.put(username, String(newHits));
+      return new Response(null, {
+        status: 200,
+      });
     }
     return makeStatusResponse(statusCodes.NOT_FOUND);
   },
