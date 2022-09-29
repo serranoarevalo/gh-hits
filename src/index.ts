@@ -44,10 +44,11 @@ export default {
         newHits = parseInt(hits) + 1;
       }
       await env.DB.put(username, String(newHits));
-      const formatted = new Intl.NumberFormat("kr-KO").format(newHits);
-      return Response.redirect(
-        `https://badgen.net/badge/hits/${formatted}/black`
-      );
+      return new Response(makeBadge(newHits), {
+        headers: {
+          "content-type": "image/svg+xml;charset=utf-8",
+        },
+      });
     }
     return makeStatusResponse(statusCodes.NOT_FOUND);
   },
