@@ -1,5 +1,5 @@
 import { home } from "./pages/home";
-import { makeStatusResponse } from "./utils";
+import { makeBadge, makeStatusResponse } from "./utils";
 
 export interface Env {
   DB: KVNamespace;
@@ -44,9 +44,10 @@ export default {
         newHits = parseInt(hits) + 1;
       }
       await env.DB.put(username, String(newHits));
-      return new Response(null, {
-        status: 200,
-      });
+      const formatted = new Intl.NumberFormat("kr-KO").format(newHits);
+      return Response.redirect(
+        `https://badgen.net/badge/hits/${formatted}/black`
+      );
     }
     return makeStatusResponse(statusCodes.NOT_FOUND);
   },
