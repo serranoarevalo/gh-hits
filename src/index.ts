@@ -32,6 +32,9 @@ export default {
       if (!username) {
         return makeStatusResponse(statusCodes.BAD_REQUEST);
       }
+      if (username === "$USERNAME") {
+        return makeStatusResponse(statusCodes.BAD_REQUEST);
+      }
       const exists = await fetch(`https://api.github.com/users/${username}`);
       if (exists.status === 404) {
         return makeStatusResponse(statusCodes.NOT_FOUND);
