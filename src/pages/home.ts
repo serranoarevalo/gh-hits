@@ -20,10 +20,10 @@ export const home = `
       <li>Create a public repository with a name that matches your GitHub username.</li>
       <li>Create a README.md file on that repository.</li>
       <li>Copy paste this code: <code>![](https://gh-hits.nomadcoders.workers.dev/view?username=$USERNAME)</code></li>
-      <li>Replace $USERNAME with <b>your</b> Github username.</code></li>
+      <li>Replace <code>$USERNAME</code> with <b>your</b> Github username.</code></li>
     </ul>
     <h3>Notes:</h3>
-    <p>To prevent abuse, this only works for github profiles.</p>
+    <p>To prevent abuse this only works for github profiles.</p>
     <hr />
     <small>Made with 🤍 by <a href="https://github.com/serranoarevalo">니꼬</a> in 🇰🇷</small>
   </body>

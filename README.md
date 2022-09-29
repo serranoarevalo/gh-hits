@@ -4,7 +4,7 @@ Dead simple view counter for your Github profile.
 
 ## Example
 
-![](https://gh-hits.nomadcoders.workers.dev/view?username=serranoarevalo)
+![](https://gh-hits.nomadcoders.workers.dev/view?username=serranoarevalo&ca)
 
 ## Get yours
 
@@ -18,4 +18,4 @@ Dead simple view counter for your Github profile.
 
 ### Notes:
 
-To prevent abuse, this only works for github profiles.
+To prevent abuse this only works for github profiles.
