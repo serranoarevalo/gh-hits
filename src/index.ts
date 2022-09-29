@@ -50,7 +50,10 @@ export default {
       return new Response(makeBadge(newHits), {
         headers: {
           "content-type": "image/svg+xml;charset=utf-8",
-          "Cache-Control": "no-cache",
+          "Cache-Control": "no-cache, no-store",
+          Expire: "Mon, 01 Jan 1990 00:00:00 GMT",
+          "Last-Modified": "Mon, 01 Jan 2999 00:00:00 GMT",
+          Etag: Date.now(),
         },
       });
     }
