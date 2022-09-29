@@ -36,7 +36,8 @@ export default {
         return makeStatusResponse(statusCodes.BAD_REQUEST);
       }
       const exists = await fetch(`https://api.github.com/users/${username}`);
-      if (exists.status === 404) {
+      console.log(exists.status);
+      if (exists.status === 403) {
         return makeStatusResponse(statusCodes.NOT_FOUND);
       }
       const hits = await env.DB.get(username);
