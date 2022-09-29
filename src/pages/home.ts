@@ -15,12 +15,16 @@ export const home = `
     <h2>Example:</h2>
     <img src="/view?username=serranoarevalo" />
     <p>See it <a href="https://github.com/serranoarevalo" target="_blank">live &rarr;</a></p>
-    <h2>Get yours</h2>
+    <h2>Get yours:</h2>
     <ul>
-      <li>Step one</li>
-      <li>Step two</li>
-      <li>Step three</li>
+      <li>Create a public repository with a name that matches your GitHub username.</li>
+      <li>Create a README.md file on that repository.</li>
+      <li>Copy paste this code: <code>![](https://gh-hits.nomadcoders.workers.dev/view?username=$USERNAME)</code></li>
+      <li>Replace $USERNAME with <b>your</b> Github username.</code></li>
     </ul>
+    <h3>Notes:</h3>
+    <p>To prevent abuse, this only works for github profiles.</p>
+    <hr />
     <small>Made with 🤍 by <a href="https://github.com/serranoarevalo">니꼬</a> in 🇰🇷</small>
   </body>
 </html>
