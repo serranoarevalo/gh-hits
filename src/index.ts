@@ -1,25 +1,15 @@
-/**
- * Welcome to Cloudflare Workers! This is your first worker.
- *
- * - Run `wrangler dev src/index.ts` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run `wrangler publish src/index.ts --name my-worker` to publish your worker
- *
- * Learn more at https://developers.cloudflare.com/workers/
- */
-
 import { home } from "./pages/home";
+import { makeStatusResponse } from "./utils";
 
 export interface Env {
-  // Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
-  // MY_KV_NAMESPACE: KVNamespace;
-  //
-  // Example binding to Durable Object. Learn more at https://developers.cloudflare.com/workers/runtime-apis/durable-objects/
-  // MY_DURABLE_OBJECT: DurableObjectNamespace;
-  //
-  // Example binding to R2. Learn more at https://developers.cloudflare.com/workers/runtime-apis/r2/
-  // MY_BUCKET: R2Bucket;
+  DB: KVNamespace;
 }
+
+const statusCodes = {
+  METHOD_NOT_ALLOWED: 405,
+  BAD_REQUEST: 400,
+  NOT_FOUND: 404,
+};
 
 export default {
   async fetch(
@@ -27,12 +17,34 @@ export default {
     env: Env,
     ctx: ExecutionContext
   ): Promise<Response> {
-    const { searchParams, pathname } = new URL(request.url);
+    const { url, method } = request;
+    if (method !== "GET") {
+      return makeStatusResponse(statusCodes.METHOD_NOT_ALLOWED);
+    }
+    const { searchParams, pathname } = new URL(url);
     if (pathname === "/") {
       return new Response(home, {
         headers: { "content-type": "text/html" },
       });
     }
-    return new Response("Hello World!");
+    if (pathname === "/view") {
+      const username = searchParams.get("username");
+      if (!username) {
+        return makeStatusResponse(statusCodes.BAD_REQUEST);
+      }
+      const exists = await fetch(`https://api.github.com/users/${username}`);
+      if (exists.status === 404) {
+        return makeStatusResponse(statusCodes.NOT_FOUND);
+      }
+      const hits = await env.DB.get(username);
+      let newHits = 0;
+      if (hits === null) {
+        newHits = newHits + 1;
+      } else {
+        newHits = parseInt(hits) + 1;
+      }
+      await env.DB.put(username, String(newHits));
+    }
+    return makeStatusResponse(statusCodes.NOT_FOUND);
   },
 };
