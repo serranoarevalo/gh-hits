@@ -5,7 +5,7 @@ export const makeStatusResponse = (status: number) =>
 
 export const makeBadge = (hits: number) => {
   const formatted = new Intl.NumberFormat("kr-KO").format(hits);
-  const width = `Views  ${formatted}`.length * 6.5;
+  const width = `Views:  ${formatted}`.length * 6.5;
   const svg = `
   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${
     width + 10
@@ -17,7 +17,7 @@ export const makeBadge = (hits: number) => {
     <g fill="#fff" text-anchor="start" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="110">
       <text x="50" y="140" transform="scale(.1)" fill="#fff" textLength="${
         width * 10
-      }">Views  ${formatted}</text>
+      }">Views:  ${formatted}</text>
     </g>
   </svg>
   `;
